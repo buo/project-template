@@ -1,0 +1,25 @@
+{
+  "name": "MYPROJECT",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "workspace",
+  "workspaceFolder": "/workspaces/MYPROJECT",
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:1": {
+      "version": "latest",
+      "moby": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/rust:1": {},
+    "ghcr.io/guiyomh/features/just:0": {}
+  },
+  "forwardPorts": [
+    5432
+  ],
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "remoteEnv": {
+    "GIT_EDITOR": "code --wait",
+    "KUBE_EDITOR": "code --wait"
+  },
+  "remoteUser": "root"
+}

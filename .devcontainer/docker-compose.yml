@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:15.2
+    command: [ "postgres", "-c", "log_statement=all" ]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    network_mode: "service:workspace"
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  workspace:
+    image: mcr.microsoft.com/devcontainers/base:debian
+    command: sleep infinity
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+    privileged: true
+    volumes:
+      - ..:/workspaces/MYPROJECT:cached
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  postgres-data:
